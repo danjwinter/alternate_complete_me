@@ -89,12 +89,22 @@ class Node
 
   def find_words_with_rank(prefix, counter=0, contains_array=[])
     if word_indicator == true && data.include?(prefix)
-        contains_array << self.data
+        put_words_in_array(prefix, counter, contains_array)
     end
       unless links.nil?
         links.values.map {|value| value.find_words_with_rank(prefix, counter, contains_array)}
       end
     contains_array.uniq
+  end
+
+  def put_words_in_array(prefix, counter, contains_array)
+    if contains_array.empty? || contains_array[counter].nil?
+        contains_array << [self.data, self.rank]
+    elsif rank > contains_array[counter][1]
+        contains_array.insert(counter, [self.data, self.rank])
+    else
+      find_words_with_rank(prefix, counter + 1, contains_array)
+    end
   end
 
   def find_prefix(prefix, counter=0)

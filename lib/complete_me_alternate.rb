@@ -125,5 +125,15 @@ class Node
   def select(prefix, word)
     node = find_prefix(prefix)
     node.ranking_hash[word] += 1
+    select_to_add_rank_for_contains(prefix, word)
   end
+
+  def select_to_add_rank_for_contains(prefix, word)
+  if data == word
+    self.rank += 1
+  elsif links != {}
+    links.values.each {|value| value.select(prefix, word)}
+  end
+  nil
+end
 end

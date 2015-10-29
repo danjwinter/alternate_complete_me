@@ -21,6 +21,10 @@ class CompleteMe
     @root.select(prefix, word)
   end
 
+  def choose(word)
+    @root.choose(word)
+  end
+
   def populate(source)
     arr = source.downcase.split("\n")
     arr.each do |entry|
@@ -127,4 +131,12 @@ class Node
     node.ranking_hash[word] += 1
   end
 
+  def choose(word)
+    if data == word
+      self.rank += 1
+    elsif links != {}
+      links.values.each {|value| value.choose(word)}
+    end
+    nil
+  end
 end

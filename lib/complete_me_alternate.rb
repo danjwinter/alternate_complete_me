@@ -52,12 +52,13 @@ class Node
 
 
   def insert(value, counter=0)
-    ranking_hash[value] = 0
+    ranking_hash.merge!({value => 0})
     if links[value[0..counter]].nil?
       links[value[0..counter]] = Node.new(value[0..counter])
     end
     if value[counter + 1].nil?
       links[value[0..counter]].word_indicator = true
+      links[value[0..counter]].ranking_hash.merge!({value => 0})
     else
       links[value[0..counter]].insert(value, counter + 1)
     end

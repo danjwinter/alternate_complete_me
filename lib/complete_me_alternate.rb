@@ -129,11 +129,11 @@ class Node
   end
 
   def select_to_add_rank_for_contains(prefix, word)
-  if data == word
-    self.rank += 1
-  elsif links != {}
-    links.values.each {|value| value.select(prefix, word)}
+    if data == word
+      self.rank += 1
+    elsif links != {}
+      links.values.each {|value| value.select(prefix, word)}
+    end
+    nil
   end
-  nil
-end
 end
